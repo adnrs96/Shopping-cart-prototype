@@ -27,11 +27,11 @@ This Repo contains a dummy data in items.json and has a dummy frontend to displa
     
             node server.js 
         
-            This will start the server at localhost and port 8181 by default
+            This will start the server at localhost and port 8080 by default
             Make sure you are in the clonned repo while doing this
     
     2.) Now using a browser open 
     
-            http://localhost:8181/ 
+            http://localhost:8080/ 
     
     3.) The shoping cart will be displayed and could be used to view working
