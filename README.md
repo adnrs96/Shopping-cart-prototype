@@ -16,9 +16,8 @@ To install these kindly refer to https://docs.npmjs.com/getting-started/installi
             sudo npm install cookie-parser
         3.) Body-parser
             sudo npm install body-parser
-        4.) Html
-            sudo npm install html
-
+            
+            
 Since now the System is Setup we can proceed to run the cart prototype 
 This Repo contains a dummy data in items.json and has a dummy frontend to display the working of Shopping cart.
 
