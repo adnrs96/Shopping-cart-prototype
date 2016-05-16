@@ -18,7 +18,7 @@ To install these kindly refer to https://docs.npmjs.com/getting-started/installi
 Since now the System is Setup we can proceed to run the cart prototype 
 This Repo contains a dummy data in items.json and has a dummy frontend to display the working of Shopping cart.
 
-Now to run the code 
+##Now to run the code 
 1.) Using the terminal type
     node server.js 
     This will start the server at localhost and port 8181 by default
