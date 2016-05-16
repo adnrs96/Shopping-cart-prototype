@@ -2,7 +2,8 @@
 This Repository contains Node.js Code for maintaining a shopping cart and saving it in browser cache.   
 
 ## Instructions to setup 
-This requires presence of NPM and Node.js on system
+This requires presence of NPM and Node.js on system.
+
 To install these kindly refer to https://docs.npmjs.com/getting-started/installing-node
 
     1.) Clone this repo on your local system
