@@ -1,0 +1,12 @@
+{
+  "name": "shopping_cart",
+  "version": "1.0.0",
+  "description": "This is a task given for the first round of interview at statsopt internship ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

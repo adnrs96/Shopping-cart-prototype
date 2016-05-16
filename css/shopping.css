@@ -1,0 +1,35 @@
+.fc{
+  display:flex;
+  justify-content:center;
+}
+#header{
+  font-family:"Verdana";
+}
+#itm_sec{
+  margin-top:40px;
+}
+#cart_sec{
+  margin-top:40px;
+}
+.item{
+  width=100px;
+  background-color:white;
+  border:10px solid transparent;
+  border-radius:3vw 3vw 3vw 3vw;
+  margin:2vw;
+}
+#item_name{
+  margin:10px 30px 10px 30px;
+}
+#item_price{
+  margin:10px 30px 10px 30px;
+}
+#add{
+  margin:10px 30px 10px 250px;
+}
+#remove{
+  margin:10px 30px 10px 250px;
+}
+#update{
+  margin:10px 30px 10px 250px;
+}
