@@ -15,7 +15,8 @@ function fetch_items() {
       item_sec.append(data);
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
-          alert(errorThrown);
+          console.log(errorThrown);
+          alert("An error has occured while making a connection to WebSite Please try reloading the page");
         });
 }
 function fill_cart()
@@ -31,7 +32,8 @@ function fill_cart()
       cart_sec.append(data);
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
-          alert(errorThrown);
+          console.log(errorThrown);
+          alert("An error has occured while making a connection to WebSite Please try reloading the page");
         });
 }
 function target_form_remove()

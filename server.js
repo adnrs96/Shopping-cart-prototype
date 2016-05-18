@@ -1,3 +1,4 @@
+// include packages required. These must be installed on system before hand.
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var app =express();
@@ -9,13 +10,26 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 var path = require('path');
+
+/* 
+
+Route to add to cart
+It handles the task of adding items to cart by refering to the cookie sent by browser.
+
+*/
 app.post('/app/add_to_cart',function(req,res){
 	console.log('add');
 	var cart = req.cookies.cart;
 	if(cart===undefined)
 	cart=[];
 	else
+	try{
 	cart=JSON.parse(cart);
+	}
+	catch(e)
+	{
+		console.log(e);
+	}
 	var item_name=req.body.name;
 	var item_id=parseInt(req.body.id);
 	var item_quantity=parseInt(req.body.quantity);
@@ -46,13 +60,25 @@ app.post('/app/add_to_cart',function(req,res){
 	res.redirect('/');
 	res.end();
 });
+/* 
+
+Route to Rempve from cart
+It handles the task of Removing items to cart by refering to the cookie sent by browser and the parameters in form request
+
+*/
 app.post('/app/remove_from_cart',function(req,res){
 	console.log('remove');
 	var cart = req.cookies.cart;
 	if(cart===undefined)
 	cart=[];
 	else
+	try{
 	cart=JSON.parse(cart);
+	}
+	catch(e)
+	{
+		console.log(e);
+	}
 	var item_id=parseInt(req.body.id);
 	for(var i in cart)
 	{
@@ -67,13 +93,23 @@ app.post('/app/remove_from_cart',function(req,res){
 	res.redirect('/');
 	res.end();
 });
+/*
+This routine updates the cart with latest data.
+Basically it is for making updates to quantity of an item.
+*/
 app.post('/app/update_cart',function(req,res){
 	console.log('update');
 	var cart = req.cookies.cart;
 	if(cart===undefined)
 	cart=[];
 	else
+	try{
 	cart=JSON.parse(cart);
+	}
+	catch(e)
+	{
+		console.log(e);
+	}
 	var item_name=req.body.name;
 	var item_id=parseInt(req.body.id);
 	var item_quantity=parseInt(req.body.quantity);
@@ -105,20 +141,29 @@ app.post('/app/update_cart',function(req,res){
 	res.redirect('/');
 	res.end();
 });
+/*
+This serves as an API for producing code that could be rendered to produce a dynamic cart content. 
+*/
 app.post('/app/fill_cart',function(req,res){
 	console.log('Rendering cart...');
 	var cart = req.cookies.cart;
+	var html="";
 	if(cart===undefined)
 	{
 		res.setHeader('Content-Type', 'application/json');
-		res.end(html);
+		res.json(html);
 		console.log("Nothing to Render");
 	}
 	else
 	{
-		cart=JSON.parse(cart);
-		var html="";
-		//console.log(cart);
+		try{
+			cart=JSON.parse(cart);
+		}
+		catch(e)
+			{
+				console.log(e);
+			}
+		console.log(cart);
 		for(var i in cart)
 		{
 				var data = cart[i];
@@ -128,7 +173,7 @@ app.post('/app/fill_cart',function(req,res){
 				    var price = parseInt(data[x].price);
 				    var quantity = parseInt(data[x].quantity);
 				    var name = data[x].item_name;
-				    html+='<div class="text-success row">      <form id="cart_list_ele" class="item" action="" method="post">        <span id="item_name">'+name+'</span>        <input type="hidden" name="name" value="'+name+'" ></input>        <span id="item_price" style="margin-left:120px">Rs '+price+'</span>       <input type="hidden"  name="price" value="'+price+'" ></input>        <input type="number" min="1" max="10" name="quantity" style="margin-left:40px" value="'+quantity+'"></input>      <input type="hidden" name="id" value="'+id+'"></input>&nbsp&nbsp&nbsp<input type="submit" value="Remove" class="btn btn-primary" onclick="target_form_remove()" id="remove"></input>&nbsp&nbsp&nbsp<input type="submit" value="Update" class="btn btn-primary" onclick="target_form_update()" id="Update"></input>      </form>    </div>  ';
+				    html+='<div class="text-success row">      <form id="cart_list_ele" class="item" action="" method="post">        <span id="item_name">'+name+'</span>        <input type="hidden" name="name" value="'+name+'" ></input>        <span id="item_price" style="margin-left:120px">Rs '+price+'</span>       <input type="hidden"  name="price" value="'+price+'" ></input>        <input type="number" min="1" max="40" name="quantity" style="margin-left:40px" value="'+quantity+'"></input>      <input type="hidden" name="id" value="'+id+'"></input>&nbsp&nbsp&nbsp<input type="submit" value="Remove" class="btn btn-primary" onclick="target_form_remove()" id="remove"></input>&nbsp&nbsp&nbsp<input type="submit" value="Update" class="btn btn-primary" onclick="target_form_update()" id="Update"></input>      </form>    </div>  ';
 				}
 		}
 		res.setHeader('Content-Type', 'application/json');
@@ -141,7 +186,7 @@ app.get('/app/fetch_items',function(req,res){
 	var html='';
 	for(var y in items)
 	{
-		//console.log(items);
+		console.log(items);
 		var data = items[y];
 		for(var x in data)
 		{
@@ -149,12 +194,16 @@ app.get('/app/fetch_items',function(req,res){
 		 	var price = parseInt(data[x].price);
 			var quantity = parseInt(data[x].quantity);
 			var name = data[x].item_name;
-			html+='<div class="text-success row">      <form id="item_list_ele" class="item" action="app/add_to_cart" method="post">       <span id="item_name">'+name+'</span>        <input type="hidden" name="name" value="'+name+'" ></input>        <span id="item_price" style="margin-left:40px">Rs '+price+'</span>        <input type="hidden"  name="price" value="'+price+'" ></input>        <input type="number" min="1" max="10" name="quantity" value="1" style="margin-left:30px"></input>      <input type="hidden" name="id" value="'+id+'"></input>      <input type="submit" value="Add to Cart" class="btn btn-primary" id="add"></input>      </form>    </div>';
+			html+='<div class="text-success row">      <form id="item_list_ele" class="item" action="app/add_to_cart" method="post">       <span id="item_name">'+name+'</span>        <input type="hidden" name="name" value="'+name+'" ></input>        <span id="item_price" style="margin-left:40px">Rs '+price+'</span>        <input type="hidden"  name="price" value="'+price+'" ></input>        <input type="number" min="1" max="40" name="quantity" value="1" style="margin-left:30px"></input>      <input type="hidden" name="id" value="'+id+'"></input>      <input type="submit" value="Add to Cart" class="btn btn-primary" id="add"></input>      </form>    </div>';
 				}
 	}
 	res.json(html);
 	console.log("Rendered.. and sent");
 });
+
+/*
+This serves as an API for producing code that could be rendered to produce a the item list dynamically from a json data file on server side. 
+*/
 app.use(express.static(__dirname +'/js'));
 app.use(express.static(__dirname +'/css'));
 app.use('/',function(req,res){
